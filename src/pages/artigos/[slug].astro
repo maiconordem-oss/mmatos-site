@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import CartaoArtigo from '../../components/CartaoArtigo.astro';
+import { render } from 'astro:content';
+import { getArtigos, relacionados } from '../../lib/artigos';
+import { SITE, linkWhatsapp, dataBR } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const artigos = await getArtigos();
+  return artigos.map((artigo) => ({ params: { slug: artigo.id }, props: { artigo, todos: artigos } }));
+}
+const { artigo, todos } = Astro.props;
+const d = artigo.data;
+const { Content } = await render(artigo);
+const caminho = `/artigos/${artigo.id}`;
+const url = new URL(caminho, SITE.url).href;
+const outros = relacionados(artigo, todos);
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.titulo,
+    description: d.descricao,
+    inLanguage: 'pt-BR',
+    mainEntityOfPage: url,
+    ...(d.publicado && { datePublished: d.publicado.toISOString().slice(0, 10) }),
+    ...((d.atualizado ?? d.publicado) && { dateModified: (d.atualizado ?? d.publicado)!.toISOString().slice(0, 10) }),
+    author: {
+      '@type': 'Person', name: 'Maicon Matos', honorificPrefix: 'Dr.', jobTitle: 'Advogado Previdenciário',
+      memberOf: { '@type': 'Organization', name: 'OAB/RS', identifier: '136.221' },
+      worksFor: { '@type': 'LegalService', name: SITE.nome, url: SITE.url },
+    },
+    publisher: { '@type': 'LegalService', name: SITE.nome, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: SITE.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Artigos', item: SITE.url + '/artigos' },
+      { '@type': 'ListItem', position: 3, name: d.titulo, item: url },
+    ],
+  },
+];
+---
+<Base titulo={`${d.titulo} | ${SITE.nome}`} descricao={d.descricao} caminho={caminho} tipo="article" jsonLd={ld} menuAtivo="artigos">
+  <article class="artigo">
+    <div class="art-tag"><span><a href="/artigos">{SITE.area}</a> · {d.categoria}</span></div>
+    <h1>{d.tituloH1} {d.tituloDestaque && <em>{d.tituloDestaque}</em>}</h1>
+    <div class="art-autor">
+      Por <strong>{SITE.autor}</strong> — Advogado Previdenciário · {SITE.oab}
+      {d.publicado && <> · Publicado em <time datetime={d.publicado.toISOString().slice(0, 10)}>{dataBR(d.publicado)}</time></>}
+      {d.atualizado && <> · Atualizado em <time datetime={d.atualizado.toISOString().slice(0, 10)}>{dataBR(d.atualizado)}</time></>}
+    </div>
+
+    <div class="conteudo">
+      <Content />
+    </div>
+
+    <div class="cta-box">
+      <h2>{d.ctaTitulo}</h2>
+      <p>{d.ctaTexto}</p>
+      <a href={linkWhatsapp(d.whatsappTexto)} class="btn" target="_blank" rel="noopener">Falar pelo WhatsApp →</a>
+    </div>
+    <p class="aviso-artigo">Este artigo tem caráter informativo e não substitui a análise individual do caso por um advogado.</p>
+  </article>
+
+  {outros.length > 0 && (
+    <section class="relacionados" aria-label="Artigos relacionados">
+      <div class="eyebrow">Continue lendo</div>
+      <h2>Artigos relacionados</h2>
+      <div class="cards">{outros.map((a) => <CartaoArtigo artigo={a} />)}</div>
+    </section>
+  )}
+</Base>

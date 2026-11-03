@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import CartaoArtigo from '../components/CartaoArtigo.astro';
+import { getArtigos } from '../lib/artigos';
+import { SITE, linkWhatsapp } from '../lib/site';
+
+const artigos = await getArtigos();
+const NA_HOME = 9;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: SITE.nome,
+  url: SITE.url,
+  description: 'Advocacia em Direito Previdenciário: aposentadorias, benefícios por incapacidade, BPC/LOAS, pensão por morte e revisões do INSS.',
+  telephone: '+55 51 99644-3212',
+  email: SITE.email,
+  areaServed: 'BR',
+  address: { '@type': 'PostalAddress', addressRegion: 'RS', addressCountry: 'BR' },
+  founder: { '@type': 'Person', name: SITE.advogado, jobTitle: 'Advogado', identifier: SITE.oab },
+};
+const areas = [
+  ['Aposentadorias', 'Regras de transição, aposentadoria por idade, por tempo de contribuição e especial.'],
+  ['Benefícios por incapacidade', 'Auxílio-doença e aposentadoria por invalidez, inclusive após perícia negada.'],
+  ['BPC/LOAS', 'Benefício assistencial para pessoa com deficiência e idoso de baixa renda.'],
+  ['Pensão por morte', 'Direitos dos dependentes, cálculo do valor e prazos para o pedido.'],
+  ['Salário-maternidade', 'Para empregadas, autônomas, MEI, seguradas rurais e desempregadas.'],
+  ['Revisões e pente-fino', 'Erros de cálculo, prazo de 10 anos e defesa em revisões do INSS.'],
+];
+---
+<Base
+  titulo={`${SITE.nome} | ${SITE.area} · ${SITE.oab}`}
+  descricao={`Advocacia em Direito Previdenciário: aposentadorias, auxílio-doença, BPC/LOAS, pensão por morte e revisão de benefícios do INSS. ${SITE.autor}, ${SITE.oab}.`}
+  caminho="/"
+  jsonLd={ld}
+>
+  <section class="secao hero">
+    <div class="eyebrow">{SITE.area} · {SITE.oab}</div>
+    <h1 class="titulo">Seus direitos junto ao INSS, <em>explicados com clareza</em></h1>
+    <p>Orientação jurídica em aposentadorias, benefícios por incapacidade, BPC/LOAS, pensão por morte e revisão de benefícios, na via administrativa e na Justiça Federal.</p>
+    <div class="btns">
+      <a href={linkWhatsapp()} class="btn" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+      <a href="#artigos" class="btn btn-ghost">Ler os artigos</a>
+    </div>
+  </section>
+
+  <section id="atuacao" class="secao">
+    <div class="eyebrow">Áreas de atuação</div>
+    <h2 class="titulo">Previdência social, <em>do pedido ao recurso</em></h2>
+    <div class="areas">
+      {areas.map(([t, d]) => <div class="area"><h3>{t}</h3><p>{d}</p></div>)}
+    </div>
+  </section>
+
+  <section id="artigos" class="secao">
+    <div class="eyebrow">Artigos</div>
+    <h2 class="titulo">Guias sobre <em>benefícios do INSS</em></h2>
+    <p class="intro">Conteúdo informativo, escrito para quem quer entender seus direitos antes de fazer um pedido ou um recurso.</p>
+    <div class="cards">
+      {artigos.slice(0, NA_HOME).map((a) => <CartaoArtigo artigo={a} />)}
+    </div>
+    {artigos.length > NA_HOME && (
+      <div class="ver-todos"><a href="/artigos" class="btn btn-ghost">Ver todos os {artigos.length} artigos</a></div>
+    )}
+  </section>
+
+  <section id="sobre" class="secao sobre">
+    <div>
+      <div class="eyebrow">Sobre</div>
+      <h2 class="titulo">Dr. Maicon <em>Matos</em></h2>
+      <p>Advogado inscrito na OAB/RS sob o nº 136.221, com atuação em Direito Previdenciário.</p>
+      <p>O atendimento começa pela análise dos documentos do segurado, como o extrato do CNIS, a carta de decisão do INSS e os laudos médicos, para identificar qual caminho faz sentido em cada situação.</p>
+    </div>
+    <dl class="info">
+      <dt>Advogado</dt><dd>{SITE.advogado}</dd>
+      <dt>Inscrição</dt><dd>{SITE.oab}</dd>
+      <dt>Área</dt><dd>{SITE.area}</dd>
+      <dt>E-mail</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+      <dt>WhatsApp</dt><dd><a href={linkWhatsapp()} target="_blank" rel="noopener">{SITE.telefone}</a></dd>
+    </dl>
+  </section>
+
+  <section id="contato" class="secao contato">
+    <div class="eyebrow">Contato</div>
+    <h2 class="titulo">Tem dúvidas sobre o <em>seu benefício?</em></h2>
+    <p>Envie uma mensagem pelo WhatsApp ou por e-mail com um resumo da sua situação.</p>
+    <div class="btns" style="justify-content:center">
+      <a href={linkWhatsapp()} class="btn" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+      <a href={`mailto:${SITE.email}`} class="btn btn-ghost">Enviar e-mail</a>
+    </div>
+    <p class="aviso">O conteúdo deste site tem caráter exclusivamente informativo e não substitui a análise individual do caso por um advogado.</p>
+  </section>
+</Base>

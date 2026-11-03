@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import CartaoArtigo from '../components/CartaoArtigo.astro';
+import { getArtigos } from '../lib/artigos';
+import { SITE } from '../lib/site';
+const artigos = await getArtigos();
+---
+<Base
+  titulo={`Artigos sobre INSS e Previdência | ${SITE.nome}`}
+  descricao="Guias sobre aposentadoria, auxílio-doença, BPC/LOAS, pensão por morte, revisão de benefícios e outros temas do INSS."
+  caminho="/artigos"
+  menuAtivo="artigos"
+>
+  <section class="secao" style="padding-top:140px">
+    <div class="eyebrow">Artigos</div>
+    <h1 class="titulo">Guias sobre <em>benefícios do INSS</em></h1>
+    <p class="intro">Conteúdo informativo sobre os principais benefícios da previdência social, escrito por {SITE.autor} ({SITE.oab}).</p>
+    <div class="cards">
+      {artigos.map((a) => <CartaoArtigo artigo={a} />)}
+    </div>
+  </section>
+</Base>

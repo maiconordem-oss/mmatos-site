@@ -1,0 +1,13 @@
+---
+import type { Artigo } from '../lib/artigos';
+interface Props { artigo: Artigo }
+const { artigo } = Astro.props;
+const d = artigo.data;
+const resumo = d.descricao.replace(/\s*(Guia completo )?(por )?Dr\. Maicon Matos.*$/i, '').trim();
+---
+<a class="card" href={`/artigos/${artigo.id}`}>
+  <span class="card-tag">{d.categoria}</span>
+  <h3>{d.titulo}</h3>
+  <p>{resumo}</p>
+  <span class="card-link">Ler artigo →</span>
+</a>
