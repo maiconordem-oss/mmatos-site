@@ -11,7 +11,8 @@ export async function getStaticPaths() {
 }
 const { artigo, todos } = Astro.props;
 const d = artigo.data;
-const { Content } = await render(artigo);
+const { Content, headings } = await render(artigo);
+const sumario = headings.filter((h) => h.depth === 2);
 const caminho = `/artigos/${artigo.id}`;
 const url = new URL(caminho, SITE.url).href;
 const outros = relacionados(artigo, todos);
@@ -45,26 +46,56 @@ const ld = [
 ];
 ---
 <Base titulo={`${d.titulo} | ${SITE.nome}`} descricao={d.descricao} caminho={caminho} tipo="article" jsonLd={ld} menuAtivo="artigos">
-  <article class="artigo">
-    <div class="art-tag"><span><a href="/artigos">{SITE.area}</a> · {d.categoria}</span></div>
-    <h1>{d.tituloH1} {d.tituloDestaque && <em>{d.tituloDestaque}</em>}</h1>
-    <div class="art-autor">
-      Por <strong>{SITE.autor}</strong> — Advogado Previdenciário · {SITE.oab}
-      {d.publicado && <> · Publicado em <time datetime={d.publicado.toISOString().slice(0, 10)}>{dataBR(d.publicado)}</time></>}
-      {d.atualizado && <> · Atualizado em <time datetime={d.atualizado.toISOString().slice(0, 10)}>{dataBR(d.atualizado)}</time></>}
-    </div>
+  <div class="artigo-wrap">
+    <header class="art-header">
+      <div class="art-tag"><span><a href="/artigos">{SITE.area}</a> · {d.categoria}</span></div>
+      <h1>{d.tituloH1} {d.tituloDestaque && <em>{d.tituloDestaque}</em>}</h1>
+      <div class="art-autor">
+        Por <strong>{SITE.autor}</strong> — Advogado Previdenciário · {SITE.oab}
+        {d.publicado && <> · Publicado em <time datetime={d.publicado.toISOString().slice(0, 10)}>{dataBR(d.publicado)}</time></>}
+        {d.atualizado && <> · Atualizado em <time datetime={d.atualizado.toISOString().slice(0, 10)}>{dataBR(d.atualizado)}</time></>}
+      </div>
+    </header>
 
-    <div class="conteudo">
-      <Content />
-    </div>
+    <div class="art-grid">
+      <article class="artigo">
+        {sumario.length > 2 && (
+          <details class="sumario-mobile">
+            <summary>Neste artigo</summary>
+            <ol>{sumario.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </details>
+        )}
 
-    <div class="cta-box">
-      <h2>{d.ctaTitulo}</h2>
-      <p>{d.ctaTexto}</p>
-      <a href={linkWhatsapp(d.whatsappTexto)} class="btn" target="_blank" rel="noopener">Falar pelo WhatsApp →</a>
+        <div class="conteudo">
+          <Content />
+        </div>
+
+        <div class="cta-box">
+          <h2>{d.ctaTitulo}</h2>
+          <p>{d.ctaTexto}</p>
+          <a href={linkWhatsapp(d.whatsappTexto)} class="btn" target="_blank" rel="noopener">Falar pelo WhatsApp →</a>
+        </div>
+        <p class="aviso-artigo">Este artigo tem caráter informativo e não substitui a análise individual do caso por um advogado.</p>
+      </article>
+
+      <aside class="art-lateral" aria-label="Navegação do artigo">
+        <div class="lateral-fixa">
+          {sumario.length > 2 && (
+            <div class="sumario" role="navigation" aria-label="Neste artigo">
+              <div class="sumario-titulo">Neste artigo</div>
+              <ol>{sumario.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+            </div>
+          )}
+          <div class="lateral-contato">
+            <div class="sumario-titulo">Dúvidas sobre o seu caso?</div>
+            <p>Envie um resumo da sua situação para uma análise individual.</p>
+            <a href={linkWhatsapp(d.whatsappTexto)} class="btn" target="_blank" rel="noopener">WhatsApp</a>
+            <a href={`mailto:${SITE.email}`} class="lateral-email">{SITE.email}</a>
+          </div>
+        </div>
+      </aside>
     </div>
-    <p class="aviso-artigo">Este artigo tem caráter informativo e não substitui a análise individual do caso por um advogado.</p>
-  </article>
+  </div>
 
   {outros.length > 0 && (
     <section class="relacionados" aria-label="Artigos relacionados">
@@ -74,3 +105,17 @@ const ld = [
     </section>
   )}
 </Base>
+
+<script>
+  // Destaca no sumário lateral a seção que está sendo lida
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.sumario a')];
+  const alvos = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter(Boolean) as HTMLElement[];
+  if (alvos.length && 'IntersectionObserver' in window) {
+    const marcar = (id: string) => links.forEach((a) => a.classList.toggle('ativo', decodeURIComponent(a.hash.slice(1)) === id));
+    const obs = new IntersectionObserver(
+      (es) => es.forEach((e) => e.isIntersecting && marcar(e.target.id)),
+      { rootMargin: '-100px 0px -70% 0px' }
+    );
+    alvos.forEach((el) => obs.observe(el));
+  }
+</script>
