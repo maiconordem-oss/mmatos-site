@@ -8,3 +8,5 @@ Site estático do escritório Maicon Matos Advocacia, publicado na Cloudflare Pa
 - `404.html`: página de erro
 
 Configuração na Cloudflare Pages: Framework preset **None**, build command vazio, output directory `/`.
+
+Última verificação de publicação: 03/11/2026.
