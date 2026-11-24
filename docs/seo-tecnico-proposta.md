@@ -16,7 +16,7 @@ Esta branch registra proposta e ajustes técnicos para revisão. Não altera con
 
 1. **Sitemap — ajuste aplicado nesta branch:** removido lastmod automático da home e da listagem; artigos recebem lastmod apenas quando o frontmatter contém `atualizado`. A data de publicação deixou de ser tratada como data de alteração. O ajuste ainda depende de merge e deploy para refletir em produção.
 2. **Dados estruturados locais — prioridade alta, dependente do advogado:** omitir o PostalAddress parcial até confirmar endereço físico elegível e divulgável. Depois, avaliar endereço completo alinhado com a página e o Perfil da Empresa. O Google documenta endereço físico como propriedade exigida para elegibilidade de recursos de negócio local; os dados devem ser reais.
-3. **Produção — prioridade alta:** verificar resposta, conteúdo e tipo MIME de robots.txt e sitemap.xml após implantação; conferir redirects HTTP/HTTPS e www, além das canonicals em amostra de URLs. O Search Console lista ausência de sitemap enviado; o envio é uma ação posterior do responsável pela propriedade depois do deploy.
+3. **Produção — prioridade alta:** uma regra Cloudflare `www`→apex foi aplicada pelo responsável em 24/11/2026 e verificada por leitura. A regra retorna 301, preserva caminho e query, e limita-se ao hostname `www.mmatos.com.br`. Conferir respostas novamente após nova coleta do Search Console. O envio do sitemap continua pendente depois do deploy.
 4. **Medição — prioridade alta:** Search Console acessível e propriedade confirmada. Em 24/11/2026, o relatório de Páginas ainda mostrava atualização de 15/11/2026; revisar os exemplos depois de nova coleta, sem solicitar indexação em massa.
 5. **Manutenção — contínua:** em alterações substanciais, manter atualizada a data editorial e validar que o sitemap reflita a data correta.
 
@@ -28,7 +28,7 @@ O artigo src/content/artigos/regras-aposentadoria-2026.md precisa de revisão do
 
 - Merge e deploy da branch antes de validar o sitemap atualizado no Search Console.
 - Responsável pela propriedade enviar `https://mmatos.com.br/sitemap.xml` no Search Console após o deploy.
-- Configurar o host `www` no DNS/Cloudflare/hospedagem para redirecionar ao domínio canônico; um arquivo de redirects do Pages não corrige um subdomínio que não chega ao Pages.
+- Se futuramente optar por servir `www` diretamente pelo Pages em vez do redirect no edge, primeiro associar `www.mmatos.com.br` como domínio customizado ao projeto e só depois alterar o DNS para CNAME `mmatos-site.pages.dev` (a documentação Cloudflare avisa que CNAME manual sem associação prévia pode falhar).
 - Advogado confirmar cidade, modelo de atendimento, endereço elegível e dados divulgáveis.
 - Revisão jurídica/ética do artigo citado e de qualquer atualização editorial.
 - Perfil da Empresa: confirmar se existe, titularidade, elegibilidade e autorização antes de qualquer alteração.
