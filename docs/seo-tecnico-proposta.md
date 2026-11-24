@@ -3,7 +3,7 @@
 Branch: seo/tecnico-inicial-2026-11-24  
 Base: main. Avaliação de código feita em 24/11/2026.
 
-Esta branch registra proposta para revisão. Não altera conteúdo jurídico/editorial, o Perfil da Empresa, nem publica no site.
+Esta branch registra proposta e ajustes técnicos para revisão. Não altera conteúdo jurídico/editorial, o Perfil da Empresa, nem publica no site.
 
 ## Achados do código
 
@@ -14,10 +14,10 @@ Esta branch registra proposta para revisão. Não altera conteúdo jurídico/edi
 
 ## Propostas técnicas priorizadas
 
-1. **Sitemap — prioridade alta:** remover lastmod da home e da listagem de artigos, pois ambas recebem a data do build, mesmo sem mudança de conteúdo. Manter lastmod por artigo somente quando a data corresponder à última alteração substancial; atualizar o campo atualizado durante revisões editoriais.
+1. **Sitemap — ajuste aplicado nesta branch:** removido lastmod automático da home e da listagem; artigos recebem lastmod apenas quando o frontmatter contém `atualizado`. A data de publicação deixou de ser tratada como data de alteração. O ajuste ainda depende de merge e deploy para refletir em produção.
 2. **Dados estruturados locais — prioridade alta, dependente do advogado:** omitir o PostalAddress parcial até confirmar endereço físico elegível e divulgável. Depois, avaliar endereço completo alinhado com a página e o Perfil da Empresa. O Google documenta endereço físico como propriedade exigida para elegibilidade de recursos de negócio local; os dados devem ser reais.
-3. **Produção — prioridade alta:** verificar resposta, conteúdo e tipo MIME de robots.txt e sitemap.xml após implantação; conferir redirects HTTP/HTTPS e www, além das canonicals em amostra de URLs.
-4. **Medição — prioridade alta:** com acesso autorizado ao Search Console, conferir sitemap lido, indexação, canonicals selecionados pelo Google, exclusões e desempenho por consulta/página.
+3. **Produção — prioridade alta:** verificar resposta, conteúdo e tipo MIME de robots.txt e sitemap.xml após implantação; conferir redirects HTTP/HTTPS e www, além das canonicals em amostra de URLs. O Search Console lista ausência de sitemap enviado; o envio é uma ação posterior do responsável pela propriedade depois do deploy.
+4. **Medição — prioridade alta:** Search Console acessível e propriedade confirmada. Em 24/11/2026, o relatório de Páginas ainda mostrava atualização de 15/11/2026; revisar os exemplos depois de nova coleta, sem solicitar indexação em massa.
 5. **Manutenção — contínua:** em alterações substanciais, manter atualizada a data editorial e validar que o sitemap reflita a data correta.
 
 ## Pendência editorial (não alterada)
@@ -26,7 +26,9 @@ O artigo src/content/artigos/regras-aposentadoria-2026.md precisa de revisão do
 
 ## Dependências
 
-- Acesso autorizado ao Search Console e confirmação da propriedade.
+- Merge e deploy da branch antes de validar o sitemap atualizado no Search Console.
+- Responsável pela propriedade enviar `https://mmatos.com.br/sitemap.xml` no Search Console após o deploy.
+- Configurar o host `www` no DNS/Cloudflare/hospedagem para redirecionar ao domínio canônico; um arquivo de redirects do Pages não corrige um subdomínio que não chega ao Pages.
 - Advogado confirmar cidade, modelo de atendimento, endereço elegível e dados divulgáveis.
 - Revisão jurídica/ética do artigo citado e de qualquer atualização editorial.
 - Perfil da Empresa: confirmar se existe, titularidade, elegibilidade e autorização antes de qualquer alteração.
@@ -36,3 +38,4 @@ O artigo src/content/artigos/regras-aposentadoria-2026.md precisa de revisão do
 - Sitemaps e precisão de lastmod: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
 - Dados estruturados de negócio local: https://developers.google.com/search/docs/appearance/structured-data/local-business
 - Requisitos técnicos da Pesquisa: https://developers.google.com/search/docs/essentials/technical
+

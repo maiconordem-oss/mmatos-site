@@ -4,13 +4,13 @@ import { SITE } from '../lib/site';
 
 export const GET: APIRoute = async () => {
   const artigos = await getArtigos();
-  const hoje = new Date().toISOString().slice(0, 10);
   const urls = [
-    { loc: `${SITE.url}/`, lastmod: hoje },
-    { loc: `${SITE.url}/artigos`, lastmod: hoje },
+    { loc: `${SITE.url}/` },
+    { loc: `${SITE.url}/artigos` },
     ...artigos.map((a) => ({
       loc: `${SITE.url}/artigos/${a.id}`,
-      lastmod: (a.data.atualizado ?? a.data.publicado)?.toISOString().slice(0, 10),
+      // A data de publicação não prova que o conteúdo foi alterado recentemente.
+      lastmod: a.data.atualizado?.toISOString().slice(0, 10),
     })),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -20,3 +20,4 @@ ${urls.map((u) => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod
 `;
   return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 };
+
