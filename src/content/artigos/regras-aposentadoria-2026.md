@@ -4,7 +4,7 @@ tituloH1: "Regras de Aposentadoria em 2026:"
 tituloDestaque: "Transição, Pontos e STF"
 descricao: "Guia completo das regras de aposentadoria em 2026: pontos, idade progressiva, pedágio e a decisão do STF (ADI 6309) que derrubou a idade mínima da aposentadoria especial. Dr. Maicon Matos, OAB/RS 136.221."
 categoria: "Aposentadoria"
-atualizado: 2026-07-02
+atualizado: 2026-11-24
 ordem: 1
 ctaTitulo: "Está próximo de se aposentar ou teve o benefício negado?"
 ctaTexto: "As regras de 2026 mudaram — especialmente para trabalhadores em atividades especiais. Avalie sua situação antes de fazer qualquer pedido ou desistir de um direito."
@@ -72,23 +72,13 @@ Para chegar a 100% da média, um homem precisaria de 40 anos de contribuição. 
 
 Em 2026: piso dos benefícios R$ 1.621,00 | teto R$ 8.475,55.
 
-<h2>🔴 Novidade urgente: STF derrubou a idade mínima da aposentadoria especial <span class="badge-novo">junho/2026</span></h2>
+## ADI 6309: decisão sobre a idade mínima da aposentadoria especial
 
-<div class="destaque-urgente"> <strong>ADI 6309 — decisão de 3 de junho de 2026:</strong> o Plenário do STF declarou inconstitucional, por 6 votos a 5, a exigência de idade mínima para a concessão da aposentadoria especial introduzida pela Reforma da Previdência (EC 103/2019). Trabalhadores expostos a agentes nocivos que completaram 15, 20 ou 25 anos de atividade especial (conforme o grau de risco) podem requerer o benefício <strong>sem precisar atingir uma idade mínima</strong>. </div>
+Em junho de 2026, o STF julgou parcialmente procedente a ADI 6309 e declarou inconstitucionais as alíneas “a”, “b” e “c” do inciso I do § 1º do art. 19 da Emenda Constitucional 103/2019, que previam idade mínima para a aposentadoria especial no Regime Geral de Previdência Social. O acórdão foi publicado em 2 de outubro de 2026. [Informativo 1220 do STF](https://www.stf.jus.br/arquivo/informativo/documento/informativo1220.htm) · [Andamento da ADI 6309](https://portal.stf.jus.br/processos/listarProcessos.asp?classe=ADI&numeroProcesso=6309)
 
-A aposentadoria especial é destinada a trabalhadores que exerceram atividades com exposição habitual e permanente a agentes nocivos físicos (ruído, calor, frio, radiação), químicos (poeira, vapores, gases) ou biológicos. Os prazos mínimos são:
+A decisão trata da exigência de idade mínima prevista nesses dispositivos. Ela não concede o benefício automaticamente nem dispensa a comprovação da exposição a agentes nocivos e dos demais requisitos previdenciários aplicáveis. [Lei 8.213/1991, art. 57](https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm)
 
-| Grau de risco | Tempo de atividade especial exigido |
-| --- | --- |
-| Maior risco (ex: mineração subterrânea, energia elétrica em alta tensão) | 15 anos |
-| Risco médio (ex: construção civil, ruído elevado) | 20 anos |
-| Menor risco (ex: trabalho em frigorífico, exposição a poeiras) | 25 anos |
-
-**O que o STF manteve:** a nova fórmula de cálculo do benefício (60% + 2% por ano excedente) e a vedação à conversão de tempo especial em tempo comum para períodos trabalhados após novembro de 2019 continuam válidas.
-
-**O que foi derrubado:** apenas a exigência de idade mínima. Quem cumpriu o tempo de exposição pode pedir o benefício independentemente da idade.
-
-<div class="destaque">Quem teve o pedido de aposentadoria especial negado <em>exclusivamente</em> pela falta de idade mínima pode ter direito de retomar o pedido administrativo ou ingressar com ação judicial à luz da decisão do STF. O acórdão ainda não foi publicado — a modulação de efeitos (que define se a decisão vale retroativamente) será definida nessa publicação. Acompanhe.</div>
+Até a consulta ao andamento do STF em 24 de novembro de 2026, havia embargos de declaração apresentados em outubro, sem julgamento registrado. Por isso, o alcance temporal da decisão e sua aplicação a situações individuais devem ser avaliados à luz de novas decisões e das circunstâncias de cada caso. [Andamento da ADI 6309 no STF](https://portal.stf.jus.br/processos/listarProcessos.asp?classe=ADI&numeroProcesso=6309)
 
 ## Professores — regras diferenciadas em 2026
 
@@ -105,5 +95,5 @@ O principal erro de quem se aposenta sem orientação é escolher a regra errada
 
 - Solicite o extrato do CNIS e verifique se todas as contribuições estão registradas
 - Simule o valor do benefício por diferentes regras — o simulador do Meu INSS é um ponto de partida, mas pode não considerar vínculos informais ou atividade especial
-- Se trabalhou em atividade insalubre, verifique se tem PPP (Perfil Profissiográfico Previdenciário) e LTCAT (Laudo Técnico das Condições Ambientais de Trabalho) — a aposentadoria especial exige esses documentos e não exige mais idade mínima desde junho de 2026
+- Se trabalhou em atividade insalubre, verifique se tem PPP (Perfil Profissiográfico Previdenciário) e LTCAT (Laudo Técnico das Condições Ambientais de Trabalho) — a documentação e os requisitos aplicáveis devem ser conferidos conforme o período trabalhado e a situação previdenciária
 - Não solicite a aposentadoria por impulso: após a concessão, o prazo para desistir é de 180 dias
